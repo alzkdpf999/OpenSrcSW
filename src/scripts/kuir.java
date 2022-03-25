@@ -51,7 +51,17 @@ public class kuir {
 
 		}
 		
-		
+		else if (command.equals("-i")) {
+			try {
+				indexer index= new indexer(path);
+				index.harddf();
+				index.readpost();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		
 	}
 }
