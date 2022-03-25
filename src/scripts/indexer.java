@@ -71,7 +71,7 @@ public class indexer {
 	            int filefre = docfre.get(word);
 	            StringBuilder output = new StringBuilder();
 
-	            for (int i = 0; i < nList.getLength(); i++) {
+            for (int i = 0; i < nList.getLength(); i++) {
 	                HashMap<String, Integer> wordmap = tfL.get(i);
 	                int wordfre=wordmap.getOrDefault(word, 0);
 	                double tfidf = wordfre * Math.log(nList.getLength() / filefre);
@@ -87,6 +87,8 @@ public class indexer {
 	        objectOutputStream.writeObject(df);
 	        objectOutputStream.close();
 	    }
+	
+	//굳이 할 필요 없는 부분
 	public void readpost() throws Exception {
 		FileInputStream filestream=new FileInputStream(output_file);
 		ObjectInputStream objectInputStream = new ObjectInputStream(filestream);
