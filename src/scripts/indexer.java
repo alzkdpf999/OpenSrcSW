@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,13 +37,13 @@ public class indexer {
 		Document document = docBuilder.parse(files);
 		document.getDocumentElement().normalize();
 		NodeList nList = document.getElementsByTagName("doc");
-		
+		HashMap<String, Integer> docfre= new HashMap<>(); // df(x)계산 
+		List hashmaplist =new ArrayList<Object>();
 		String bodyData;
-		HashMap<String, Integer> docfre=new HashMap<>();
-		ArrayList<HashMap<String,Integer>> tfL=new ArrayList<>();
+		
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
-			HashMap<String,Integer> wordtf=new HashMap<>();
+			HashMap<String, Integer> wordtf = new HashMap<>(); //문서마다 단어와 빈도수 저장1
 			
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
@@ -52,41 +53,42 @@ public class indexer {
 			for(String s: re)
 			{	
 				String[] re1=s.split(":");
-				String word= re1[0];
-				int tf=Integer.parseInt(re1[1]);
+				String word = re1[0];
+				int tf = Integer.parseInt(re1[1]);
+				wordtf.put(word, tf);
 				if(docfre.containsKey(word)) {
-					docfre.put(word,docfre.get(word)+1);
+				docfre.put(word, docfre.get(word)+1);
 				}
 				else {
-					docfre.put(word, 1);
+					docfre.put(word,1);
 				}
-				wordtf.put(word, tf);
 			}
-			tfL.add(wordtf);
-		}
-		}
-			HashMap<String, String> df =new HashMap<>();
 			
-			for (String word : docfre.keySet()) {
-	            int filefre = docfre.get(word);
-	            StringBuilder output = new StringBuilder();
-
-            for (int i = 0; i < nList.getLength(); i++) {
-	                HashMap<String, Integer> wordmap = tfL.get(i);
-	                int wordfre=wordmap.getOrDefault(word, 0);
-	                double tfidf = wordfre * Math.log(nList.getLength() / filefre);
-	                output.append(String.format("%d %.1f ", i, tfidf));
-	            }
-
-	           df.put(word, output.toString());
-	        }
-
-	        FileOutputStream fileStream = new FileOutputStream(output_file);
+		}
+			hashmaplist.add(wordtf);
+		}
+		HashMap<String, String> call = new HashMap<>(); // 값을 저장 
+		for(String word : docfre.keySet()) 
+		{
+			int num = docfre.get(word); 
+			StringBuilder store= new StringBuilder();
+			for(int i=0; i<nList.getLength();i++)
+			{
+				
+				HashMap<String, Integer> caltfidf= (HashMap<String, Integer>) hashmaplist.get(i);
+				int caltf=caltfidf.getOrDefault(word, 0);
+				double tfidf = caltf * Math.log(nList.getLength()/num) ;
+				store.append(String.format("%d %.2f ", i, tfidf));
+			}
+			call.put(word, store.toString());
+		}
+		 FileOutputStream fileStream = new FileOutputStream(output_file);
 	        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileStream);
 
-	        objectOutputStream.writeObject(df);
+	        objectOutputStream.writeObject(call);
 	        objectOutputStream.close();
-	    }
+}
+	
 	
 	//굳이 할 필요 없는 부분
 	public void readpost() throws Exception {
@@ -108,6 +110,3 @@ public class indexer {
 		System.out.println("4주차실행완료!!");
 	}
 }
-	
-
-
