@@ -67,20 +67,20 @@ public class indexer {
 		}
 			hashmaplist.add(wordtf);
 		}
-		HashMap<String, String> call = new HashMap<>(); // 값을 저장 
+		HashMap<String, HashMap<String,Double>> call = new HashMap<>(); // 값을 저장 
 		for(String word : docfre.keySet()) 
 		{
 			int num = docfre.get(word); 
-			StringBuilder store= new StringBuilder();
+			HashMap<String,Double> store= new HashMap<>();
 			for(int i=0; i<nList.getLength();i++)
 			{
 				
 				HashMap<String, Integer> caltfidf= (HashMap<String, Integer>) hashmaplist.get(i);
 				int caltf=caltfidf.getOrDefault(word, 0);
 				double tfidf = caltf * Math.log(nList.getLength()/num) ;
-				store.append(String.format("%d %.2f ", i, tfidf));
+				store.put(String.format("%d", i), tfidf);
 			}
-			call.put(word, store.toString());
+			call.put(word, store);
 		}
 		 FileOutputStream fileStream = new FileOutputStream(output_file);
 	        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileStream);
@@ -97,12 +97,18 @@ public class indexer {
 		Object object=objectInputStream.readObject();
 		objectInputStream.close();
 		HashMap hashMap=(HashMap)object;
-		Iterator<String> it=hashMap.keySet().iterator();
-	while(it.hasNext()) {
-		String key=it.next();
-		String value = (String)hashMap.get(key);
-		System.out.println(key+":::"+value);
-	}
+
+        for (Object key : hashMap.keySet()) {
+            HashMap valueMap = (HashMap) hashMap.get(key);
+            StringBuilder store = new StringBuilder();
+
+            for (Object valueKey : valueMap.keySet()) {
+                double value = (double) valueMap.get(valueKey);
+                store.append(String.format("%s %.2f ", valueKey, value));
+            }
+
+            System.out.println(key + ":::" + store);
+        }
 		
 	}
 		
