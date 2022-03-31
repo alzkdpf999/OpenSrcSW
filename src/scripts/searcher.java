@@ -1,25 +1,25 @@
 package scripts;
 
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.snu.ids.ha.index.Keyword;
 import org.snu.ids.ha.index.KeywordExtractor;
@@ -28,12 +28,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 @SuppressWarnings({"rawtypes","unchecked","nls"})
 public class searcher {
 	private String input_file;
 	
 	public searcher (String path) {
 		this.input_file=path;		
+	}
+	public void	harddf() {
+		System.out.println("5주차실행완료!!");
 	}
 	
 	public void calcsim(String Q)throws Exception {
@@ -61,7 +65,7 @@ public class searcher {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
-				String id= nNode.getAttributes().getNamedItem("id").getTextContent();
+				String id= eElement.getAttributes().getNamedItem("id").getTextContent();
 						titleinput.put(id,title);
 						double sim= 0.0;
 			
@@ -80,31 +84,34 @@ public class searcher {
 						simword.put(id,sim);
 			}
 		}
-			HashMap <String, Double> sortlist=new HashMap<String,Double>();
-			
-			List<Entry<String,Double>> printlist =new ArrayList<Entry<String,Double>>(simword.entrySet());
-			Collections.sort(printlist, new Comparator<Entry<String, Double>>() {
-				// compare로 값을 비교
-				public int compare(Entry<String, Double> obj1, Entry<String, Double> obj2)
-				{
-					// 내림 차순으로 정렬
-					return obj2.getValue().compareTo(obj1.getValue());
-					
-				}
-			});
-			for(Entry<String, Double> shorttimestore: printlist) {
-				sortlist.put(shorttimestore.getKey(),shorttimestore.getValue());
-			}
-			
-			ArrayList<String> finish=new ArrayList(sortlist.keySet());
-			
-	
-			 for (int i = 0; i < 3; i++) {
-		            String ki = finish.get(i);
-		            String title = titleinput.get(ki);
 
-		            System.out.println(title);
+		// Map.Entry 리스트 작성
+		HashMap<String,Double> show = new LinkedHashMap<>();
+				ArrayList<Entry<String, Double>> list_entries = new ArrayList<Entry<String, Double>>(simword.entrySet());
+
+				// 비교함수 Comparator를 사용하여 내림 차순으로 정렬
+				Collections.sort(list_entries, new Comparator<Entry<String, Double>>() {
+					// compare로 값을 비교
+					public int compare(Entry<String, Double> obj1, Entry<String, Double> obj2)
+					{
+						// 내림 차순으로 정렬
+						return obj2.getValue().compareTo(obj1.getValue());
+					}
+				});
+				for(Entry<String, Double> entry: list_entries) {
+					show.put(entry.getKey(),entry.getValue());
+				}
+				 ArrayList<String> print = new ArrayList(show.keySet());
+				 System.out.println();
+				for (int k = 0; k < 3; k++) {
+		            String key = print.get(k);
+		            String title = titleinput.get(key);
+		            
+		            
+		            System.out.println((k+1)+"순위"+" "+ title);
 		        }
 	}
+	
 }
+
 

@@ -63,13 +63,15 @@ public class kuir {
 		}
 		else if (command.equals("-s")) {
 			try {
-				
 				searcher search= new searcher(path);
+				
 				if(args.length==4) {
 					String secondcommand=args[2];
 					String Q=args[3];
 					if(secondcommand.equals("-q")) {
-						search.calcsim(Q);
+						search.calcsim(Q);	
+						search.harddf();
+						
 					}
 				}
 			} catch (Exception e) {
