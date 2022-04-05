@@ -105,10 +105,13 @@ public class searcher {
 				 System.out.println();
 				for (int k = 0; k < 3; k++) {
 		            String key = print.get(k);
-		            String title = titleinput.get(key);
-		            
-		            
-		            System.out.println((k+1)+"순위"+" "+ title);
+		            if(show.get(key)!=0) {
+		            	String title = titleinput.get(key);
+		            	System.out.println((k+1)+"순위"+" "+ title);
+		            }
+		            else if(show.get(key)==0) {
+		            	System.out.println("검색된 문서가 없습니다.");
+		            }
 		        }
 	}
 	
