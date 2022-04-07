@@ -39,8 +39,5 @@ public class kuir {
 				e.printStackTrace();
 			}
 		}
-		
-
-		
 	}
 }
