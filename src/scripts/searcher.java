@@ -78,9 +78,12 @@ public class searcher {
 					}
 					HashMap weight = (HashMap) store.get(word);
 					double weightdoc = (double) weight.get(id);
-					
+					double queryword += Math.pow(wQ,2); 
+					double docword += Math.pow(weightdoc,2);
 				}
-				simword.put(id, sim);
+				double Cosinedown= Math.sqrt(queryword) * Math.sqrt(docword);
+				double Cosinesim= innerproductreturn/Cosinedown;
+				simword.put(id, Cosinesim);
 			}
 		}
 
