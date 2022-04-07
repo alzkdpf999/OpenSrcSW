@@ -35,6 +35,22 @@ public class searcher {
 		this.input_file = path;
 	}
 
+	public double InnerProduct(HashMap store,String id,KeywordList kl){
+		double asd = 0.0;
+				for (Keyword kw : kl) {
+					String word = kw.getString();
+					double wQ = kw.getCnt();
+					if (!store.containsKey(word)) {
+						continue;
+					}
+					HashMap weight = (HashMap) store.get(word);
+					double weightdoc = (double) weight.get(id);
+	
+					double innerpro = wQ * weightdoc;
+					asd += innerpro;
+				}
+		return asd;
+	}
 	public void harddf() {
 		System.out.println("5주차실행완료!!");
 	}
@@ -81,6 +97,9 @@ public class searcher {
 					 docword += Math.pow(weightdoc,2);
 				}
 				double Cosinedown= Math.sqrt(queryword) * Math.sqrt(docword);
+			if(Cosinedown ==0){
+				Cosinedown=1;
+			}
 				double Cosinesim= innerproductreturn/Cosinedown;
 				simword.put(id, Cosinesim);
 			}
@@ -116,20 +135,5 @@ public class searcher {
 }
 
 
-public double InnerProduct(HashMap store,String id,KeywordList kl){
-	double asd = 0.0;
-			for (Keyword kw : kl) {
-				String word = kw.getString();
-				double wQ = kw.getCnt();
-				if (!store.containsKey(word)) {
-					continue;
-				}
-				HashMap weight = (HashMap) store.get(word);
-				double weightdoc = (double) weight.get(id);
 
-				double innerpro = wQ * weightdoc;
-				asd += innerpro;
-			}
-	return asd;
-}
 
