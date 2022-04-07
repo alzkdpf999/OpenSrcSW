@@ -2,23 +2,10 @@ package scripts;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.snu.ids.ha.index.Keyword;
 import org.snu.ids.ha.index.KeywordExtractor;
 import org.snu.ids.ha.index.KeywordList;
@@ -26,17 +13,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+
+
 
 @SuppressWarnings({ "rawtypes", "unchecked", "nls" })
 public class searcher {
 	private String input_file;
 
-	public searcher(String path) {
-		this.input_file = path;
-	}
-
-	public double InnerProduct(String Q) throws Exception {
+	public double InnerProduct(String Q,String path) throws Exception {
+		this.input_file=path;
 		double asd = 0.0;
 
 		HashMap<String, String> titleinput = new HashMap<>();
