@@ -106,7 +106,4 @@ public class indexer {
 		
 	}
 		
-	public void	harddf() {
-		System.out.println("4주차실행완료!!");
-	}
 }
