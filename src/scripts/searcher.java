@@ -9,7 +9,7 @@ import org.snu.ids.ha.index.KeywordList;
 @SuppressWarnings({ "rawtypes", "unchecked", "nls" })
 public class searcher {
 
-	public double InnerProduct(HashMap store,String id,KeywordList kl) throws Exception {
+	public double InnerProduct(HashMap store,String id,KeywordList kl){
 		double asd = 0.0;
 				for (Keyword kw : kl) {
 					String word = kw.getString();
