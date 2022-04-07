@@ -68,9 +68,7 @@ public class searcher {
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
 				titleinput.put(id, title);
-				
 				double innerproductreturn = InnerProduct(store,id,kl);
-				
 				for (Keyword kw : kl) {
 					String word = kw.getString();
 					double wQ = kw.getCnt();
