@@ -70,7 +70,7 @@ public class searcher {
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
 				titleinput.put(id, title);
 				
-				double innerproductreturn = InnerProduct(Q,input_file);
+				double innerproductreturn = InnerProduct(store,id,kl);
 				
 				for (Keyword kw : kl) {
 					String word = kw.getString();
