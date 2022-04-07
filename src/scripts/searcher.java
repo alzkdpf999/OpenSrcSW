@@ -2,13 +2,14 @@ package scripts;
 
 import java.util.HashMap;
 import org.snu.ids.ha.index.Keyword;
+import org.snu.ids.ha.index.KeywordList;
 
 
 
 @SuppressWarnings({ "rawtypes", "unchecked", "nls" })
 public class searcher {
 
-	public double InnerProduct(String Q,String path) throws Exception {
+	public double InnerProduct(HashMap store,String id,KeywordList kl) throws Exception {
 		double asd = 0.0;
 				for (Keyword kw : kl) {
 					String word = kw.getString();
