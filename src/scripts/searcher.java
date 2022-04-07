@@ -67,8 +67,9 @@ public class searcher {
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
 				titleinput.put(id, title);
-				double sim = 0.0;
-
+				
+				double innerproductreturn = InnerProduct(Q,input_file);
+				
 				for (Keyword kw : kl) {
 					String word = kw.getString();
 					double wQ = kw.getCnt();
@@ -77,9 +78,7 @@ public class searcher {
 					}
 					HashMap weight = (HashMap) store.get(word);
 					double weightdoc = (double) weight.get(id);
-
-					double innerpro = wQ * weightdoc;
-					sim += innerpro;
+					
 				}
 				simword.put(id, sim);
 			}
