@@ -43,6 +43,8 @@ public class searcher {
 	public void calcsim(String Q) throws Exception {
 		HashMap<String, String> titleinput = new HashMap<>();
 		HashMap<String, Double> simword = new HashMap<>();
+		double queryword=0.0;
+		double docword=0.0;
 		// 일단 post파일 읽고 해쉬맵에 일단 저장한뒤 title을 같이 저장해야한다.
 
 		FileInputStream filestream = new FileInputStream(input_file);
@@ -78,8 +80,8 @@ public class searcher {
 					}
 					HashMap weight = (HashMap) store.get(word);
 					double weightdoc = (double) weight.get(id);
-					double queryword += Math.pow(wQ,2); 
-					double docword += Math.pow(weightdoc,2);
+					 queryword += Math.pow(wQ,2); 
+					 docword += Math.pow(weightdoc,2);
 				}
 				double Cosinedown= Math.sqrt(queryword) * Math.sqrt(docword);
 				double Cosinesim= innerproductreturn/Cosinedown;
