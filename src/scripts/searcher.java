@@ -40,7 +40,7 @@ public class searcher {
 		System.out.println("5주차실행완료!!");
 	}
 	
-	public void calcsim(String Q)throws Exception {
+	public void Calcsim(String Q)throws Exception {
 		HashMap<String, String> titleinput= new HashMap<>();
 		HashMap<String, Double> simword= new HashMap<>();
 		//일단 post파일 읽고 해쉬맵에 일단 저장한뒤 title을 같이 저장해야한다.
