@@ -49,8 +49,6 @@ public class searcher {
 					double innerpro = wQ * weightdoc;
 					asd += innerpro;
 				}
-
-				
 		return asd;
 	}
 	public void harddf() {
