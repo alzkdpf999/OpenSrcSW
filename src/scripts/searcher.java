@@ -1,5 +1,6 @@
 package scripts;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -72,6 +73,19 @@ public class searcher {
 				
 				double innerproductreturn = InnerProduct(store,id,kl);
 				
+=======
+import java.util.HashMap;
+import org.snu.ids.ha.index.Keyword;
+import org.snu.ids.ha.index.KeywordList;
+
+
+
+@SuppressWarnings({ "rawtypes", "unchecked", "nls" })
+public class searcher {
+
+	public double InnerProduct(HashMap store,String id,KeywordList kl) throws Exception {
+		double asd = 0.0;
+>>>>>>> feature
 				for (Keyword kw : kl) {
 					String word = kw.getString();
 					double wQ = kw.getCnt();
@@ -80,6 +94,7 @@ public class searcher {
 					}
 					HashMap weight = (HashMap) store.get(word);
 					double weightdoc = (double) weight.get(id);
+<<<<<<< HEAD
 					 queryword += Math.pow(wQ,2); 
 					 docword += Math.pow(weightdoc,2);
 				}
@@ -117,4 +132,12 @@ public class searcher {
 		}
 	}
 
+=======
+
+					double innerpro = wQ * weightdoc;
+					asd += innerpro;
+				}
+		return asd;
+	}
+>>>>>>> feature
 }
