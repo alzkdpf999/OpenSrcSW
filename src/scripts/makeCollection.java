@@ -60,7 +60,6 @@ public class makeCollection {
 			doc.appendChild(title);
 			doc.appendChild(body);
 		}
-
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
