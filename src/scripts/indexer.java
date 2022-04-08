@@ -70,15 +70,16 @@ public class indexer {
 		HashMap<String, HashMap<String,Double>> call = new HashMap<>(); // 값을 저장 
 		for(String word : docfre.keySet()) 
 		{
+			//단어 x 몇개의 문서에서 등장하는지
 			int num = docfre.get(word); 
 			HashMap<String,Double> store= new HashMap<>();
 			for(int i=0; i<nList.getLength();i++)
 			{
-				
+				//문서y에서 단어 x 등장한 횟수(빈도수) 저장 ,getordefault 사용해서 word가 있으면 value값을 없으면 0을 
 				HashMap<String, Integer> caltfidf= (HashMap<String, Integer>) hashmaplist.get(i);
 				int caltf=caltfidf.getOrDefault(word, 0);
 				double tfidf = caltf * Math.log(nList.getLength()/num) ;
-				store.put(String.format("%d", i), tfidf);
+				store.put(String.format("%d", i), Double.valueOf(String.format("%.2f", tfidf)));
 			}
 			call.put(word, store);
 		}
@@ -97,7 +98,8 @@ public class indexer {
 		Object object=objectInputStream.readObject();
 		objectInputStream.close();
 		HashMap hashMap=(HashMap)object;
-
+//hasMap에 key값들만큼 돌리고 hashMap에 value를 valueMap에 저장 
+		//밀:::0 1.61 1 0.00 2 0.00 3 0.00 4 0.00  이런식으로 저
         for (Object key : hashMap.keySet()) {
             HashMap valueMap = (HashMap) hashMap.get(key);
             StringBuilder store = new StringBuilder();

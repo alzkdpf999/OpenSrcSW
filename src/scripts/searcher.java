@@ -44,7 +44,7 @@ public class searcher {
 			if(!store.containsKey(word)) {
 				continue;
 			}
-			HashMap weight =(HashMap) store.get(word);
+			HashMap weight =(HashMap) store.get(word); 
 			double weightdoc=(double) weight.get(docid);
 			innerproductreturn+=(wQ*weightdoc);
 		}
@@ -57,8 +57,8 @@ public class searcher {
 	
 
 	public void calcsim(String Q) throws Exception {
-		HashMap<String, String> titleinput = new HashMap<>();
-		HashMap<String, Double> simword = new HashMap<>();
+		HashMap<String, String> titleinput = new HashMap<>(); //title 저장위
+		HashMap<String, Double> simword = new HashMap<>(); // 유사도 저
 		double queryword=0.0;
 		double docword=0.0;
 		// 일단 post파일 읽고 해쉬맵에 일단 저장한뒤 title을 같이 저장해야한다.
@@ -77,6 +77,7 @@ public class searcher {
 
 		KeywordExtractor ke = new KeywordExtractor(); // 질의어 키워드대로 일단 나누기
 		KeywordList kl = ke.extractKeyword(Q, true);
+//doc 밑으로 쭉 돌면서 title과 id 가지고 온다.
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
 			double weightdoc=0.0;
@@ -90,13 +91,13 @@ public class searcher {
 				 innerproductreturn=InnerProduct(store, id,kl);
 				titleinput.put(id, title);
 				for (Keyword kw : kl) {
-					String word = kw.getString();
+					String word = kw.getString(); //문자 반환
 					wQ = kw.getCnt();
 					if (!store.containsKey(word)) {
 						continue;
 					}
 					HashMap weight = (HashMap) store.get(word);
-					 weightdoc = (double) weight.get(id);
+					 weightdoc = (double) weight.get(id); // key값 id의 value얻기 
 
 		
 					 queryword += Math.pow(wQ,2); 
@@ -111,7 +112,7 @@ public class searcher {
 			}
 			
 		}
-
+// entryset() key-value값을 모두반환 ,keyset() key값만 반환
 		// Map.Entry 리스트 작성
 		HashMap<String, Double> show = new LinkedHashMap<>();
 		ArrayList<Entry<String, Double>> list_entries = new ArrayList<Entry<String, Double>>(simword.entrySet());
@@ -122,6 +123,7 @@ public class searcher {
 			public int compare(Entry<String, Double> obj1, Entry<String, Double> obj2) {
 				// 내림 차순으로 정렬
 				return obj2.getValue().compareTo(obj1.getValue());
+//				return obj1.getValue().compareTo(obj2.getValue()); //오름 차순 정
 			}
 		});
 		for (Entry<String, Double> entry : list_entries) {
