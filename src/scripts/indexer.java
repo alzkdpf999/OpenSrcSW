@@ -78,7 +78,7 @@ public class indexer {
 				HashMap<String, Integer> caltfidf= (HashMap<String, Integer>) hashmaplist.get(i);
 				int caltf=caltfidf.getOrDefault(word, 0);
 				double tfidf = caltf * Math.log(nList.getLength()/num) ;
-				store.put(String.format("%d", i), tfidf);
+				store.put(String.format("%d", i), Double.valueOf(String.format(".2f",tfidf)));
 			}
 			call.put(word, store);
 		}
