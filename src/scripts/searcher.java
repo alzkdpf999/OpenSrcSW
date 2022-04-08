@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.print.DocFlavor.INPUT_STREAM;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,25 +36,15 @@ public class searcher {
 		this.input_file = path;
 	}
 
-	public double InnerProduct(HashMap store,String id,KeywordList kl){
-		double asd = 0.0;
-				for (Keyword kw : kl) {
-					String word = kw.getString();
-					double wQ = kw.getCnt();
-					if (!store.containsKey(word)) {
-						continue;
-					}
-					HashMap weight = (HashMap) store.get(word);
-					double weightdoc = (double) weight.get(id);
-	
-					double innerpro = wQ * weightdoc;
-					asd += innerpro;
-				}
-		return asd;
+	public double InnerProduct(double wQ,double weightdoc){
+		double innerpro=wQ*weightdoc;
+		return innerpro;
 	}
+	
 	public void harddf() {
 		System.out.println("5주차실행완료!!");
 	}
+	
 
 	public void calcsim(String Q) throws Exception {
 		HashMap<String, String> titleinput = new HashMap<>();
@@ -61,7 +52,6 @@ public class searcher {
 		double queryword=0.0;
 		double docword=0.0;
 		// 일단 post파일 읽고 해쉬맵에 일단 저장한뒤 title을 같이 저장해야한다.
-
 		FileInputStream filestream = new FileInputStream(input_file);
 		ObjectInputStream objectInputStream = new ObjectInputStream(filestream);
 		Object object = objectInputStream.readObject();
@@ -79,20 +69,24 @@ public class searcher {
 		KeywordList kl = ke.extractKeyword(Q, true);
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
+			double weightdoc=0.0;
+			double wQ=0.0;
+			double innerproductreturn=0.0;
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
 				titleinput.put(id, title);
-				double innerproductreturn = InnerProduct(store,id,kl);
 				for (Keyword kw : kl) {
 					String word = kw.getString();
-					double wQ = kw.getCnt();
+					wQ = kw.getCnt();
 					if (!store.containsKey(word)) {
 						continue;
 					}
 					HashMap weight = (HashMap) store.get(word);
-					double weightdoc = (double) weight.get(id);
+					 weightdoc = (double) weight.get(id);
+
+					 innerproductreturn=InnerProduct(wQ, weightdoc);
 					 queryword += Math.pow(wQ,2); 
 					 docword += Math.pow(weightdoc,2);
 				}
