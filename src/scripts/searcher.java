@@ -12,6 +12,8 @@ public class searcher {
 	public double InnerProduct(double wQ,double weightdoc){
 		double innerpro=wQ*weightdoc;
 		
+		
 		return innerpro;
-}
+		}
+	
 }
