@@ -39,24 +39,25 @@ public class kuir {
 				e.printStackTrace();
 			}
 		}
-		else if (command.equals("-s")) {
-			try {
-				searcher search= new searcher(path);
-				
-				if(args.length==4) {
-					String secondcommand=args[2];
-					String Q=args[3];
-					if(secondcommand.equals("-q")) {
-						search.calcsim(Q);	
-						search.harddf();
-						
-					}
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		//	feature는 더이상 안씀
+//		else if (command.equals("-s")) {
+//			try {
+//				searcher search= new searcher(path);
+//				
+//				if(args.length==4) {
+//					String secondcommand=args[2];
+//					String Q=args[3];
+//					if(secondcommand.equals("-q")) {
+//						search.calcsim(Q);	
+//						search.harddf();
+//						
+//					}
+//				}
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 
 		
 	}
