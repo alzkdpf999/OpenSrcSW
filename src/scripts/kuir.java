@@ -28,7 +28,6 @@ public class kuir {
 			}
 
 		}
-		
 		else if (command.equals("-i")) {
 			try {
 				indexer index= new indexer(path);
@@ -48,8 +47,7 @@ public class kuir {
 					String Q=args[3];
 					if(secondcommand.equals("-q")) {
 						search.calcsim(Q);	
-						search.harddf();
-						
+						search.harddf();		
 					}
 				}
 			} catch (Exception e) {
