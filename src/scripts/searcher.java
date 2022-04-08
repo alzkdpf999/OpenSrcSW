@@ -19,7 +19,7 @@ public class searcher {
 			}
 			HashMap weight =(HashMap)store.get(word);
 			double weightdoc=(double)weight.get(docid);
-			innerproductreturn=wQ*weightdoc;
+			innerproductreturn=(wQ*weightdoc);
 		}
 		return innerproductreturn;
 }
