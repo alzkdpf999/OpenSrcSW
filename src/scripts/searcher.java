@@ -36,10 +36,19 @@ public class searcher {
 		this.input_file = path;
 	}
 
-	public double InnerProduct(double wQ,double weightdoc){
-		double innerpro=0;
-				innerpro=wQ*weightdoc;
-		return innerpro;
+	public double InnerProduct(HashMap store,String docid, KeywordList kl){
+		double innerproductreturn=0.0;
+		for(Keyword kw : kl) {
+			String word= kw.getString();
+			double wQ=kw.getCnt();
+			if(!store.containsKey(word)) {
+				continue;
+			}
+			HashMap weight =(HashMap) store.get(word);
+			double weightdoc=(double) weight.get(docid);
+			innerproductreturn+=(wQ*weightdoc);
+		}
+		return innerproductreturn;
 	}
 	
 	public void harddf() {
@@ -73,10 +82,12 @@ public class searcher {
 			double weightdoc=0.0;
 			double wQ=0.0;
 			double innerproductreturn=0.0;
+			
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
+				 innerproductreturn=InnerProduct(store, id,kl);
 				titleinput.put(id, title);
 				for (Keyword kw : kl) {
 					String word = kw.getString();
@@ -87,7 +98,7 @@ public class searcher {
 					HashMap weight = (HashMap) store.get(word);
 					 weightdoc = (double) weight.get(id);
 
-					 innerproductreturn=InnerProduct(wQ, weightdoc);
+		
 					 queryword += Math.pow(wQ,2); 
 					 docword += Math.pow(weightdoc,2);
 				}
@@ -95,9 +106,10 @@ public class searcher {
 			if(Cosinedown ==0){
 				Cosinedown=1;
 			}
-				double Cosinesim= innerproductreturn/Cosinedown;
-				simword.put(id, Cosinesim);
+			double Cosinesim=innerproductreturn /Cosinedown;
+			simword.put(id, Cosinesim);
 			}
+			
 		}
 
 		// Map.Entry 리스트 작성
