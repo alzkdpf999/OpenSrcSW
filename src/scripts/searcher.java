@@ -1,5 +1,6 @@
 package scripts;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.snu.ids.ha.index.Keyword;
 import org.snu.ids.ha.index.KeywordList;
@@ -9,17 +10,11 @@ import org.snu.ids.ha.index.KeywordList;
 @SuppressWarnings({ "rawtypes", "unchecked", "nls" })
 public class searcher {
 
-	public double InnerProduct(HashMap store,String docid, KeywordList kl){
+	public double InnerProduct(ArrayList<Double> wQlist, ArrayList<Double> weightdoclist){
 		double innerproductreturn=0.0;
-		for(Keyword kw : kl) {
-			String word= kw.getString();
-			double wQ=kw.getCnt();
-			if(!store.containsKey(word)) {
-				continue;
-			}
-			HashMap weight =(HashMap)store.get(word);
-			double weightdoc=(double)weight.get(docid);
-			innerproductreturn=(wQ*weightdoc);
+		for(int i=0;i<wQlist.size();i++) {
+			double temp=wQlist.get(i)*weightdoclist.get(i);
+			innerproductreturn+=temp;
 		}
 		return innerproductreturn;
 }
