@@ -36,20 +36,15 @@ public class searcher {
 		this.input_file = path;
 	}
 
-	public double InnerProduct(HashMap store,String docid, KeywordList kl){
+	public double InnerProduct(ArrayList<Double> wQlist,ArrayList<Double>weightdoclist){
 		double innerproductreturn=0.0;
-		for(Keyword kw : kl) {
-			String word= kw.getString();
-			double wQ=kw.getCnt();
-			if(!store.containsKey(word)) {
-				continue;
-			}
-			HashMap weight =(HashMap) store.get(word); 
-			double weightdoc=(double) weight.get(docid);
-			innerproductreturn+=(wQ*weightdoc);
-		}
-		return innerproductreturn;
+		for(int i=0;i<wQlist.size();i++)
+		{
+			double temp=wQlist.get(i)*weightdoclist.get(i);
+		innerproductreturn+=temp;
 	}
+		return innerproductreturn;
+}
 	
 	public void harddf() {
 		System.out.println("5주차실행완료!!");
@@ -83,12 +78,12 @@ public class searcher {
 			double weightdoc=0.0;
 			double wQ=0.0;
 			double innerproductreturn=0.0;
-			
+			ArrayList<Double> wQlist=new ArrayList<Double>();
+			ArrayList<Double> weightdoclist=new ArrayList<Double>();
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				String title = eElement.getElementsByTagName("title").item(0).getTextContent();
 				String id = eElement.getAttributes().getNamedItem("id").getTextContent();
-				 innerproductreturn=InnerProduct(store, id,kl);
 				titleinput.put(id, title);
 				for (Keyword kw : kl) {
 					String word = kw.getString(); //문자 반환
@@ -98,11 +93,13 @@ public class searcher {
 					}
 					HashMap weight = (HashMap) store.get(word);
 					 weightdoc = (double) weight.get(id); // key값 id의 value얻기 
-
+					 wQlist.add(wQ);
+					 weightdoclist.add(weightdoc);
 		
 					 queryword += Math.pow(wQ,2); 
 					 docword += Math.pow(weightdoc,2);
 				}
+				 innerproductreturn=InnerProduct(wQlist,weightdoclist);
 				double Cosinedown= Math.sqrt(queryword) * Math.sqrt(docword);
 			if(Cosinedown ==0){
 				Cosinedown=1;
