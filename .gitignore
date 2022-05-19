@@ -2,3 +2,4 @@
 /src/scripts/.metadata/
 /.metadata/
 /*.csv
+/test.ipynb
