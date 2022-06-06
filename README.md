@@ -1,6 +1,6 @@
 # OpenSrcSW
 
-컴파일
+컴파일(오류로 인해 이 컴파일 말고 15주차 컴파일 부분을 실행해주세요.)
 
 javac -cp jars/jsoup-1.14.3.jar:jars/org.snu.ids.ha.jar src/scripts/*.java -d bin -encoding UTF8
 
