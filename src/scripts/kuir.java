@@ -59,9 +59,9 @@ public class kuir {
 			String secondcommand=args[2];
 			String query=args[3];
 			if(secondcommand.equals("-q")) {
-				MidTerm sn=new MidTerm(path);
+			//	MidTerm sn=new MidTerm(path);
 				try {
-					sn.showSnippet(query);
+		//			sn.showSnippet(query);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

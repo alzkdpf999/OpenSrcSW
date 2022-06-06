@@ -8,5 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/jeongchunghyo/eclipse-workspace/openSrcSW/jars/jsoup-1.14.3.jar"/>
 	<classpathentry kind="lib" path="/Users/jeongchunghyo/eclipse-workspace/openSrcSW/jars/org.snu.ids.ha.jar"/>
+	<classpathentry kind="lib" path="/Users/jeongchunghyo/eclipse-workspace/openSrcSW/jars/json-simple-1.1.1.jar"/>
+	<classpathentry excluding="src/" kind="src" path=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
